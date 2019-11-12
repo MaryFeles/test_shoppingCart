@@ -1,0 +1,47 @@
+.main {
+    margin: auto;
+    width: 80%;
+    padding: 8px;
+    border: solid 3px;
+}
+ 
+.container{
+    border: solid 1px;
+    margin-top: 10px;
+ }
+
+.left-column{
+    width: 50%;
+    float: left;
+
+}
+
+.right-column{
+    
+}
+
+.price-title {
+    display: inline-block;
+    margin: 3%;
+}
+
+.price {
+    display: inline-block;
+}
+
+.total-price {
+    text-align: right;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+
+}
+
+td {
+    padding: 4px;
+    text-align: center;
+}
