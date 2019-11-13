@@ -41,8 +41,8 @@ table {
     border-collapse: collapse;
 }
 
-tr {
-
+tr:hover {
+    cursor: pointer;
 }
 
 td {

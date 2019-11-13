@@ -16,10 +16,10 @@ const cartColumns = cartList.getElementsByTagName("td");
 const price = document.getElementById("price");
 
 
-let classes = [];
+let columnsId = [];
 for (let i = 0; i <itemColumns.length; i++){
 	let c = itemColumns[i].getAttribute('class');
-classes.push(c);
+columnsId.push(c);
 }
 
 
@@ -33,9 +33,29 @@ main();
 
 function addRow(tableRows, item){
 	let row = tableRows.insertRow(tableRows.rows.length);
-	for (let i = 0; i < classes.length; i++){
+	for (let i = 0; i < columnsId.length; i++){
 		let cell = row.insertCell(i);
-		let key = classes[i];
+		let key = columnsId[i];
 		cell.innerHTML = item[key];
+		cell.className += key;
+		row.setAttribute( 'data-id', tableRows.rows.length);
+	}
+	/*console.log(row);*/
+}
+
+/*console.log(itemRows.rows.length);*/
+
+
+
+
+function clickListener(){
+	for(let i = 0; i < itemRows.rows.length; i++){
+		itemRows.rows[i].addEventListener('click', addToCart)
 	}
 }
+
+function addToCart(){
+	
+}
+
+clickEvent();
