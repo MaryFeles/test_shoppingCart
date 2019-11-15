@@ -51,72 +51,67 @@ function addRow(tableRows, item){
 		row.setAttribute( 'data-id', tableRows.rows.length);
 	}
 	for(let i = 0; i < itemRows.rows.length; i++){
-		itemRows.rows[i].addEventListener('click', addToCart)
-
+		itemRows.rows[i].addEventListener('click', addToBasket);
 	}
-	console.log(); 
 }
 
 
 function renderBasket(){
-	//let productPrice = 
 	bascket[bascket.length-1]["quantity"] = 1;
-	addRowCart(cartRows, bascket[bascket.length-1]);
+	addCartRow(cartRows, bascket[bascket.length-1]);
 	console.log(bascket);
 }
 
 
-function addRowCart(tableRows, item){	
+function addCartRow(tableRows, item){	
 	let f = false;
-
 	let cache;
-	for (let i = 0; i < bascket.length; i++){
-		cache = bascket[bascket.length-1]["name"];
-		for (let j = 0; j < bascket.length-1; j++){
-			if(cache == bascket[j]["name"]){	
-				f = false;
-				//console.log(tableRows.querySelector('.quantity'));
-				break;		 
-			} else 	f = true;
-		} 
+	cache = bascket[bascket.length-1]["name"];
+	for (let j = 0; j < bascket.length-1; j++){
+		if(cache == bascket[j]["name"]){	
+			f = false;
+			for(i=0; i< tableRows.rows.length; i++){
+				if (tableRows.children[i].children[1].innerHTML == cache){
+					tableRows.children[i].children[2].innerHTML++;
+					tableRows.children[i].children[3].innerHTML = parseInt(tableRows.children[i].children[3].innerHTML)+bascket[j]["price"];
+				}
+				tableRows.getAttribute("data-id");
+			} 
+			break;		 
+		} else 	f = true;
 	}
 
 	if (f || (bascket.length == 1)){
-
-		row = tableRows.insertRow();	
+		let row = tableRows.insertRow();	
 		for (let i = 0; i < columnsId.length; i++){
 			let cell = row.insertCell(i);
 			let key = columnsId[i];
 			cell.className += key;
 			row.setAttribute( 'data-id', tableRows.rows.length);
 
-		//cell.innerHTML = item[key];
+			if (cell.getAttribute('class') == "price"){
+				cell.innerHTML = item["price"];
+			}
 
-		if (cell.getAttribute('class') == "name"){
-			cell.innerHTML = item["name"];
+			if (cell.getAttribute('class') == "name"){
+				cell.innerHTML = item["name"];
+			}
+
+			if (cell.getAttribute('class') == "quantity"){
+				cell.innerHTML = item["quantity"];
+			}
+
+			if (cell.getAttribute('class') == "id"){
+				cell.innerHTML = tableRows.rows.length;
+			}
 		}
-
-		if (cell.getAttribute('class') == "quantity"){
-			cell.innerHTML = item.quantity;
-		};
-
-	}
-	console.log();
-		//if (cell.getAttribute('class') == "quantity"){
-		//	cell.innerHTML = 1;
-		//}
-	} else if(!f && (bascket.length > 1)){
-		//console.log(item.name);
-		console.log(tableRows);
-		tableRows.querySelector('.quantity').innerHTML++;
-
-
-		//q = tableRows.querySelector('.quantity');	
-	}
+	}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 for(let i = 0; i < itemRows.rows.length; i++){
+		cartRows.rows[i].addEventListener('click', addToStorage);
+	}//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
-
-function addToCart(e) {
+function addToBasket(e) {
 	let dataId = e.target.parentNode.getAttribute('data-id');
 	let foundStoreItem = storage.find(function(currentElem) {
 		if (currentElem.id == dataId) {
@@ -130,8 +125,7 @@ function addToCart(e) {
 		bascket.push(JSON.parse(JSON.stringify(foundStoreItem)));
 		foundStoreItem.quantity--;
 		renderBasket();
-		//console.log(foundStoreItem.id);
-		
+		//console.log(foundStoreItem.id);	
 	}
 	//console.log(foundStoreItem);
 
@@ -148,3 +142,25 @@ function addToCart(e) {
 } else alert("error");*/
 //	console.log(this.children[1].textContent);
 }
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function addToStorage(e) {
+	let dataId = e.target.parentNode.getAttribute('data-id');
+	let foundStoreItem = bascket.find(function(currentElem) {
+		if (currentElem.id == dataId) {
+			return true;
+		}
+		return false;
+	});
+	/*if (foundStoreItem.quantity == 0) {
+		alert('Failed');
+	} else {
+		bascket.push(JSON.parse(JSON.stringify(foundStoreItem)));
+		foundStoreItem.quantity--;
+		main();
+		//console.log(foundStoreItem.id);	
+	}*/
+
+	alert('!!!');
+}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
