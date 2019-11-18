@@ -195,5 +195,5 @@ function totalPrice(){
 	for (let i = 0; i < cartRows.rows.length; i++){
 		sum = sum + parseInt(cartRows.rows[i].children[3].innerHTML);
 	}
-	price.innerHTML = s;
+	price.innerHTML = sum;
 }
